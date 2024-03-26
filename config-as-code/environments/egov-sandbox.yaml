@@ -355,7 +355,8 @@ egov-persister:
 
 national-dashboard-ingest:
   heap: "-Xmx750m -Xms750m"
-  replicas: 5
+  memory_limits: 1Gi
+  replicas: 2
   server-tomcat-max-threads: 25
   module-index-mapping: '{"PT": "pt-national-dashboard", "PGR": "pgr-national-dashboard", "WS": "ws-national-dashboard", "FIRENOC": "firenoc-national-dashboard", "TL": "tl-national-dashboard", "MCOLLECT": "mcollect-national-dashboard", "OBPS": "obps-national-dashboard", "COMMON": "common-national-dashboard", "BPA": "bpa-national-dashboard","BIRTH":"birth-cert-national-dashboard","CF":"citizen-feedback-national-dashboard"}'
   master-data-index: "master-national-dashboard"
