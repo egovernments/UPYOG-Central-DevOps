@@ -2,8 +2,7 @@ global:
   domain: egov-sandbox.niua.org
   setup: fullsetup
   namespace: jenkins
-  containerRegistry: naljal
-  
+
 cluster-configs:
   namespaces:
     create: true
@@ -27,7 +26,6 @@ jenkins:
         - vinothrallapalli-eGov
       user:
         - egovernments*upyog
-        - egovernments*upyog
 
   master:
     ingress:
@@ -41,12 +39,12 @@ jenkins:
 
   jobBuilder:
     repos: >-
-      'git@github.com:egovernments/upyog'
+      'git@github.com:egovernments/upyog.git'
   deploymentJobs:
     - name: egov-sandbox
       acl: [egovernments*upyog]
     - name: ci
-      acl: [egovernments*upyog]
+      acl: [vinothrallapalli-eGov, shivam-eGov]
 
 docker-registry:
   namespace: docker

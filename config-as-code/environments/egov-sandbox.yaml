@@ -313,7 +313,7 @@ egov-localization:
   memory_limits: "768Mi"
   
 egov-mdms-service:
-  replicas: 2
+  replicas: 1
   heap:  "-Xmx512m -Xms512m"
   memory_limits: "768Mi"
   mdms-path: "/work-dir/upyog-mdms-data/data"
