@@ -490,7 +490,7 @@ master:
                 disabled(false)
               }                          
               {{- else }}
-              deployer(repo:'git@github.com:egovernments/upyog-central-devops', branch: 'eks-1', helmDir: 'deploy-as-code/helm', environment: '{{ $job.name }}')""")
+              deployer(repo:'git@github.com:egovernments/upyog-central-devops', branch: 'eks-1', helmDir: 'config-as-code', environment: '{{ $job.name }}')""")
                       sandbox() 
                     }
                 }
