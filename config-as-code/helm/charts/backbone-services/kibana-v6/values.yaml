@@ -6,7 +6,7 @@ namespace: es-cluster
 # Ingress Configs
 ingress:
   enabled: true
-  context: "kibana"
+  context: "kibana-v6"
   additionalAnnotations: |
     nginx.ingress.kubernetes.io/auth-signin:  https://$host/oauth2/start?rd=$escaped_request_uri
     nginx.ingress.kubernetes.io/auth-url:     https://$host/oauth2/auth 
@@ -17,20 +17,20 @@ initContainers: {}
 # Container Configs
 image:
   repository: "docker.elastic.co/kibana/kibana"
-  tag: 8.11.3
+  tag: 6.6.2
 replicas: "1"
 httpPort: 5601
-elasticsearchHosts: "http://elasticsearch-data-v1.es-cluster:9200"
-serverBasePath: "/kibana"
-healthCheckPath: "kibana/app/kibana"
+elasticsearchHosts: "http://elasticsearch-data-v6.es-cluster:9200"
+serverBasePath: "/kibana-v6"
+healthCheckPath: "kibana-v6/app/kibana"
 healthChecks:
   enabled: true
-  livenessProbePath: "/kibana/"
-  readinessProbePath: "/kibana/"            
+  livenessProbePath: "/kibana-v6/"
+  readinessProbePath: "/kibana-v6/"
 
 # Additional Container Envs
 env: |
-  - name: ELASTICSEARCH_HOSTS
+  - name: ELASTICSEARCH_URL
     value: {{ .Values.elasticsearchHosts | quote }}
   - name: SERVER_BASEPATH
     value: {{ .Values.serverBasePath | quote }}

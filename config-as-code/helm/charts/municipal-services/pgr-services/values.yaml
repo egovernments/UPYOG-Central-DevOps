@@ -43,6 +43,10 @@ env: |
     value: egov-pgr-services
   - name: SPRING_KAFKA_PRODUCER_KEY_SERIALIZER
     value: org.apache.kafka.common.serialization.StringSerializer
+  - name: FLYWAY_ENABLED
+    value: "true"      
+  - name: SPRING_FLYWAY_ENABLED
+    value: "true"
   {{- if index .Values "global" "serializers-timezone-in-ist" }}
   - name: SPRING_KAFKA_PRODUCER_VALUE_SERIALIZER
     value: org.egov.tracer.kafka.serializer.ISTTimeZoneJsonSerializer
@@ -167,6 +171,3 @@ env: |
   - name: PGR_COMPLAIN_IDLE_TIME
     value: {{ index .Values "time-before-closing-complaint" | quote }} 
   {{- end }}
-
-
-  

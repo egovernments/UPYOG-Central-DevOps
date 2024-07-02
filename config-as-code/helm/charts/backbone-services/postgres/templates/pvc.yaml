@@ -1,16 +1,25 @@
-{{- if eq .Values.global.setup "quickstart" }} 
+{{- if .Values.persistence.enabled }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: pvc-postgres
-  namespace: egov
+  namespace: {{ .Values.namespace }}
   labels:
+    app: postgres
+  {{- if .Values.persistence.aws }}
+    type: aws
+  {{- else }}
     type: local
+  {{- end }}
 spec: 
-  storageClassName: manual
   accessModes:
-    - ReadWriteOnce
+    - {{ .Values.persistence.accessMode | quote }}
   resources:
     requests:
-      storage: 1Gi
+      storage: {{ .Values.persistence.size | quote }}
+{{- if .Values.persistence.storageClass }}
+  storageClassName: "{{ .Values.persistence.storageClass }}"
+{{- else }}
+  storageClassName: "gp2"
+{{- end }}
 {{- end }}

@@ -1,0 +1,10 @@
+
+creation_rules:
+        - path_regex: environments/egov\-sandbox\-secrets\.yaml$   # egov-sandbox
+          encrypted_regex: '^(secrets)$'
+          kms: 'arn:aws:kms:ap-south-1:654654451425:key/8608dd77-6683-4608-8225-7c749582157f'
+
+        - path_regex: environments/ci\-secrets\.yaml$   # ci
+          encrypted_regex: '^(secrets)$'
+          kms: 'arn:aws:kms:ap-south-1:654654451425:key/8608dd77-6683-4608-8225-7c749582157f'
+

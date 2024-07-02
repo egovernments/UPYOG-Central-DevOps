@@ -141,7 +141,7 @@ master:
   # jenkinsOpts: ""
   # jenkinsUrl: ""
   # If you set this prefix and use ingress controller then you might want to set the ingress path below
-  # jenkinsUriPrefix: "/jenkins"
+  jenkinsUriPrefix: "/"
   # Enable pod security context (must be `true` if runAsUser or fsGroup are set)      
   # Environment variables that get added to the init container (useful for e.g. http_proxy)
   # initContainerEnv:
@@ -404,14 +404,14 @@ master:
         unclassified:
           globalLibraries:
             libraries:
-            - defaultVersion: "master"
+            - defaultVersion: "ciops"
               name: "ci-libs"
               retriever:
                 modernSCM:
                   scm:
                     git:
                       credentialsId: "git_read"
-                      remote: "git@github.com:egovernments/CIOps.git"
+                      remote: "git@github.com:egovernments/upyog-configs.git"
                       traits:
                       - "gitBranchDiscovery"
       system-message: | 
@@ -475,13 +475,29 @@ master:
                 definition {
                   cps {
                       script("""library 'ci-libs'
-              
-              deployer(repo:'git@github.com:egovernments/DIGIT-DevOps.git', branch: 'release', helmDir: 'config-as-code/helm', environment: '{{ $job.name }}')""")
+              {{- if (eq $job.name "central-instance") }}
+              deployer(repo:'git@github.com:egovernments/DIGIT-DevOps.git', branch: 'central-instance', helmDir: 'deploy-as-code/helm', environment: '{{ $job.name }}')""")
+                      sandbox()
+                    }
+                }
+                disabled(false)
+              }
+              {{- else if (eq $job.name "test") }}
+              deployer(repo:'git@github.com:egovernments/DIGIT-DevOps.git', branch: 'central-instance', helmDir: 'deploy-as-code/helm', environment: '{{ $job.name }}')""")
                       sandbox() 
                     }
                 }
                 disabled(false)
-              }     
+              }                          
+              {{- else }}
+              deployer(repo:'git@github.com:egovernments/upyog-central-devops', branch: 'eks-1', helmDir: 'config-as-code', environment: '{{ $job.name }}')""")
+                      sandbox() 
+                    }
+                }
+                disabled(false)
+              }  
+              {{- end }}
+   
           {{- end }}
 
               
@@ -592,16 +608,23 @@ master:
     #     serviceName: ssl-redirect
     #     servicePort: use-annotation
     - backend:
-        serviceName: >-
-          {{ template "jenkins.fullname" . }}
+        service:
+          name: >-
+            {{ template "jenkins.fullname" . }}
         # Don't use string here, use only integer value!
-        servicePort: 8080
+          port:
+            number: 8080
+      path: >-
+        {{ .Values.master.jenkinsUriPrefix }}
+      pathType: Prefix
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
     apiVersion: "networking.k8s.io/v1beta1"
     labels: {}
     annotations: 
       kubernetes.io/ingress.class: "nginx"
-      nginx.ingress.kubernetes.io/use-regex: "true" 
+      nginx.ingress.kubernetes.io/use-regex: "true"
+#      nginx.ingress.kubernetes.io/auth-signin: https://$host/oauth2/start?rd=$escaped_request_uri
+#      nginx.ingress.kubernetes.io/auth-url: https://$host/oauth2/auth
     # kubernetes.io/tls-acme: "true"
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
     path: "/"

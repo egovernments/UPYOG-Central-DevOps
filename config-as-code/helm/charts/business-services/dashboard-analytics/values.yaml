@@ -20,6 +20,7 @@ initContainers:
 image:
   repository: "dashboard-analytics"
 replicas: "1"
+appType: "java-spring"
 tracing-enabled: true
 config-schema-paths: "file:///work-dir/configs/egov-dss-dashboards/dashboard-analytics/*.json"
 
@@ -80,3 +81,13 @@ env: |
     value: {{ index .Values "heap" | quote }}
   - name: JAVA_ARGS
     value: {{ index .Values "java-args" | quote }}
+  - name: SERVICES_ESINDEXER_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-credential
+        key: username
+  - name: SERVICES_ESINDEXER_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: elasticsearch-credential
+        key: password

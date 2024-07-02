@@ -1,0 +1,60 @@
+global:
+  domain: egov-sandbox.niua.org
+  setup: fullsetup
+  namespace: jenkins
+
+cluster-configs:
+  namespaces:
+    create: true
+    values: [ jenkins ]
+
+jenkins:
+  persistence:
+    enabled: true
+    storageClass: gp2
+    accessMode: "ReadWriteOnce"
+    size: "80Gi"
+    aws:
+      - volumeId: "vol-03af104c6127bb4e6"
+        zone: ap-south-1b
+
+  oauth:
+    enabled: true
+    acl:
+      admin:
+        - shivam-eGov
+        - vinothrallapalli-eGov
+      user:
+        - egovernments*upyog
+        - abhijniua
+
+  master:
+    ingress:
+      enabled: true
+    resources:
+      limits:
+        cpu: "2000m"
+        memory: "4096Mi"
+    javaOpts: "-Xms2560M -Xmx2560M -Duser.timezone=Asia/Calcutta"
+    jenkinsUriPrefix: /jenkins
+
+  jobBuilder:
+    repos: >-
+      'git@github.com:egovernments/upyog.git'
+  deploymentJobs:
+    - name: egov-sandbox
+      acl: [egovernments*upyog, abhijniua]
+    - name: ci
+      acl: [vinothrallapalli-eGov, shivam-eGov]
+
+docker-registry:
+  namespace: docker
+  fullnameOverride: registry
+  persistence:
+    enabled: true
+    storageClass: gp2
+    accessMode: 'ReadWriteOnce'
+    size: 50Gi
+    aws:
+      - volumeId: "vol-05f63f60b76d8db79"
+        zone: ap-south-1b

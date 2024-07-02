@@ -21,12 +21,12 @@ image:
 replicas: "1"
 httpPort: 5601
 elasticsearchHosts: "http://elasticsearch-data-infra-v1.es-cluster-infra:9200"
-serverBasePath: "/logging"
-healthCheckPath: "logging/app/kibana"
+serverBasePath: "/kibana-infra"
+healthCheckPath: "kibana-infra/app/kibana"
 healthChecks:
   enabled: true
-  livenessProbePath: "/logging/"
-  readinessProbePath: "/logging/"            
+  livenessProbePath: "/kibana-infra/"
+  readinessProbePath: "/kibana-infra/"            
 
 # Additional Container Envs
 env: |

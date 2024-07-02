@@ -16,6 +16,12 @@ resources: |
 
 tracing-enabled: false
 
+persistence:
+  enabled: false
+  size: "20Gi"
+  storageClass: "gp2"
+  accessMode: "ReadWriteOnce"
+
 env: |
   - name: POSTGRES_PASSWORD
     valueFrom:
@@ -31,13 +37,12 @@ env: |
     value: {{ default "" .Values.postgresDatabase | quote }}
 extraVolumeMounts: |
   - name: postgres-volume
-    mountPath: /var/lib/postgresql/data
+    mountPath: /var/lib/postgresql
 extraVolumes: |
   - name: postgres-volume
-  {{- if eq .Values.global.setup "quickstart" }} 
+  {{- if .Values.persistence.enabled }}
     persistentVolumeClaim:
       claimName: pvc-postgres
-  {{- end}}    
-
+  {{- end }}
 
 postgresDatabase: egov_ms      
