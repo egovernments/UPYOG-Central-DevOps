@@ -1,16 +1,16 @@
 # Common Labels
 labels:
-  app: "health-individual"
+  app: "individual"
   group: "core"
 
-namespace: health
+namespace: egov
 
 # Ingress Configs
 ingress:
   namespace: egov
   enabled: true
   zuul: true
-  context: "health-individual"
+  context: "individual"
 
 # Init Containers Configs
 initContainers:
@@ -18,28 +18,25 @@ initContainers:
     enabled: true
     schemaTable: "individual_schema"
     image:
-      repository: "health-individual-db"
+      repository: "individual-db"
 
 # Container Configs
 image:
-  repository: "health-individual"
+  repository: "individual"
 replicas: "1"
 healthChecks:
   enabled: true
-  livenessProbePath: "/health-individual/health"
-  readinessProbePath: "/health-individual/health"
+  livenessProbePath: "/individual/health"
+  readinessProbePath: "/individual/health"
 appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx192m -Xms192m"
 java-args: ""
-egov-mdms-service-host-key: "egov-mdms-service"
 
 # Additional Container Envs
 env: |
   - name: SPRING_KAFKA_CONSUMER_GROUP_ID
     value: health-individual
-  - name: SERVER_SERVLET_CONTEXT_PATH
-    value:  "/health-individual" 
   - name: SPRING_KAFKA_PRODUCER_KEY_SERIALIZER
     value: org.apache.kafka.common.serialization.StringSerializer
   {{- if index .Values "global" "tracer-errors-provideexceptionindetails" }}
@@ -71,17 +68,17 @@ env: |
   - name: SPRING_CACHE_AUTOEXPIRY
     value: "true"
   - name: INDIVIDUAL.CONSUMER.BULK.CREATE.TOPIC
-    value: "individual-consumer-bulk-create-health-topic"
+    value: "individual-consumer-bulk-create-topic"
   - name: INDIVIDUAL.CONSUMER.BULK.UPDATE.TOPIC
-    value: "individual-consumer-bulk-update-health-topic"
+    value: "individual-consumer-bulk-update-topic"
   - name: INDIVIDUAL.CONSUMER.BULK.DELETE.TOPIC
-    value: "individual-consumer-bulk-delete-health-topic"
+    value: "individual-consumer-bulk-delete-topic"
   - name: INDIVIDUAL.PRODUCER.SAVE.TOPIC
-    value: "save-individual-health-topic"
+    value: "save-individual-topic"
   - name: INDIVIDUAL.PRODUCER.UPDATE.TOPIC
-    value: "update-individual-health-topic"
+    value: "update-individual-topic"
   - name: INDIVIDUAL.PRODUCER.DELETE.TOPIC
-    value: "delete-individual-health-topic"
+    value: "delete-individual-topic"
   - name: KAFKA_TOPICS_NOTIFICATION_SMS
     value: "egov.core.notification.sms"
   {{- if index .Values "state-level-tenant-id" }}
@@ -108,7 +105,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key: {{ index .Values "egov-mdms-service-host-key" | quote }}
+        key: egov-mdms-service
   - name: EGOV_MDMS_SEARCH_ENDPOINT
     value: "/egov-mdms-service/v1/_search"
   - name: EGOV_ENC_HOST
@@ -149,19 +146,10 @@ env: |
   - name: USER_SERVICE_ACCOUNT_LOCKED
     value: "false"
   - name: INDIVIDUAL_PRODUCER_UPDATE_USER_ID_TOPIC
-    value: "update-user-id-health-topic"
+    value: "update-user-id-topic"
   - name: NOTIFICATION_SMS_ENABLED
     value: "false"
   {{- if index .Values "tracing-enabled" }}
   - name: TRACER_OPENTRACING_ENABLED
     value: "true" 
   {{- end }}
-  - name: EGOV_BOUNDARY_HOST
-    valueFrom:
-      configMapKeyRef:
-        name: egov-service-host
-        key: boundary-service
-  - name: EGOV_BOUNDARY_SEARCH_URL
-    value: "/boundary-service/boundary/_search"
-  - name: EGOV_BOUNDARY_HIERARCHY_NAME
-    value: "HCM-Moz-Hierarchy"
