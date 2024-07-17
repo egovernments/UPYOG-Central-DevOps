@@ -169,9 +169,9 @@ cluster-configs:
         pet-services: "http://pet-services.egov:8080/"
         pt-services-dx: "http://pt-services-dx.egov:8080/"
         individual: "http://individual.egov:8080/"
-        pqm: "http://pqm.sanitation:8080"
-        pqm-service: "http://pqm-service.sanitation:8080"
-        pqm-anomaly-finder: "http://pqm-anomaly-finder.sanitation:8080"
+        pqm: "http://pqm.egov:8080"
+        pqm-service: "http://pqm-service.egov:8080"
+        pqm-anomaly-finder: "http://pqm-anomaly-finder.egov:8080"
 
 
 billing-service:
