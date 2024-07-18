@@ -1,0 +1,26 @@
+# Replace with the name which you want to give to your EKS cluster
+# Cluster name can have only lowercase alphanumeric characters and hyphens
+# For example: "digit-demo"
+cluster_name: "egov-sandbox"
+
+# Replace with ssh key name you want
+ssh_key_name: "egov-sandbox-ssh-key"
+
+# Replace with public key which you want to add in your EC2 machines # ssh key which you want to add in your EC2 machines
+public_ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDAVuFdu5ITNLtM7ce35B7eKu48G1B/AyF0IXi4AKVQDgw5A1u0aVOMvmxvoDxxKs9PaCQuQnUQXlIoFVQlB+xMsjaYNl4Fq+CkXbJVuh6Y+clqul9xwUR0aZAA9zJYvwQrs2cmj3NzTDE2+D2mqrMwvjJepwp0DZRWm0rarhIN7VpTmxVnOipgJFwFCbmqDfeM9/sqADZawmfKZYs24DU0BWBRJD6wXJmng/v5B0hhLTvClqD+19myHC78uc62F9zIduLvNgxUWpUiB6rGTnbVaT3TTCe6LTQwtyDiy39vut/9ROMtJs6/k6MEldRwtjCMQJXF02RcXERVWPtGqdIdpuTPGTqY8WdNGb8BmnjiF+HYx18SGtcA0sPWgSI50/P2TXsjSluWdetuySxyEHsdUNyuvxKzyLOZ2b+VQbj7aYsesRVnTp1jE617LNnb4nt0M3ZXvM7z8pbS/djEMAWb7SbmrhRWyy0DnGn+5qja+Ry9x2fOLOde4FNXIOGKuO8="
+
+# Name you want to give to your Database
+# DB name must contain only alphanumeric characters
+db_name: "demo"
+
+# Replace with DB username you want
+# DB user name must contain only alphanumeric characters
+db_username: "demo" 
+
+# Replace with Domain name you want for your web applications
+domain_name: "egov-sandbox.niua.org"
+
+# Replace with the name you want to give to your S3 bucket which is used to store the terraform state
+terraform_state_bucket_name: "egov-sandbox-terraform"
+
+

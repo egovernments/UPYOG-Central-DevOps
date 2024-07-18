@@ -6,8 +6,7 @@ resource "aws_db_subnet_group" "db_subnet_group" {
     tomap({
       "Name" = "db-subnet-group-${var.environment}",
       "environment" = "${var.environment}"
-    })
-  }"
+    })}"
 }
 
 resource "aws_db_instance" "rds_postgres" {
@@ -31,7 +30,6 @@ resource "aws_db_instance" "rds_postgres" {
     tomap({
       "Name" =  "${var.environment}-db",
       "environment" = "${var.environment}"
-    })
-  }"  
+    })}"
 }
 

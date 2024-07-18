@@ -14,8 +14,7 @@ resource "aws_vpc" "vpc" {
     tomap({
       Name = "${var.cluster_name}"
       "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    })
-  }"
+    })}"
 }
 
 resource "aws_subnet" "public_subnet" {
@@ -32,8 +31,7 @@ resource "aws_subnet" "public_subnet" {
       "kubernetes.io/role/elb" = 1
       "SubnetType" = "Utility"
       "KubernetesCluster" = "${var.cluster_name}"
-    })
-  }"
+    })}"
 }
 
 resource "aws_subnet" "private_subnet" {
@@ -50,8 +48,7 @@ resource "aws_subnet" "private_subnet" {
       "kubernetes.io/role/internal-elb" = 1
       "SubnetType" = "Private"
       "KubernetesCluster" = "${var.cluster_name}"
-    })
-  }"
+    })}"
 }
 
 resource "aws_internet_gateway" "internet_gateway" {
@@ -62,8 +59,7 @@ resource "aws_internet_gateway" "internet_gateway" {
       "Name" = "${var.cluster_name}" 
       "kubernetes.io/cluster/${var.cluster_name}" = "shared" 
       "KubernetesCluster" = "${var.cluster_name}"
-    })
-  }"
+    })}"
 }
 
 resource "aws_route_table" "public_route_table" {
@@ -79,8 +75,7 @@ resource "aws_route_table" "public_route_table" {
       "Name" = "public-${var.cluster_name}-rtb"
       "kubernetes.io/cluster/${var.cluster_name}" = "shared"
       "KubernetesCluster" = "${var.cluster_name}"
-    })
-  }"
+    })}"
 }
 
 resource "aws_route_table_association" "public" {
@@ -99,8 +94,7 @@ resource "aws_eip" "eip" {
       "Name" = "eip-${var.cluster_name}"
       "kubernetes.io/cluster/${var.cluster_name}" = "shared"
       "KubernetesCluster" = "${var.cluster_name}"
-    })
-  }"  
+    })}"
 
 }
 
@@ -115,8 +109,7 @@ resource "aws_nat_gateway" "nat" {
       "Name" = "nat-gw-${var.cluster_name}"
       "kubernetes.io/cluster/${var.cluster_name}" = "shared"
       "KubernetesCluster" = "${var.cluster_name}"
-    })
-  }"
+    })}"
 }
 
 
@@ -133,8 +126,7 @@ resource "aws_route_table" "private_route_table" {
       "Name" = "private-${var.cluster_name}-rtb"
       "kubernetes.io/cluster/${var.cluster_name}" = "shared"
       "KubernetesCluster" = "${var.cluster_name}"
-    })
-  }"  
+    })}"
 }
 
 resource "aws_route_table_association" "private" {
@@ -152,6 +144,5 @@ resource "aws_security_group" "rds_db_sg" {
   tags = "${
     tomap({
       "Name" = "db-${var.cluster_name}"
-    })
-  }"
+    })}"
 }
