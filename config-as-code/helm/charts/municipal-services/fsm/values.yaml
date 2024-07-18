@@ -48,7 +48,7 @@ env: |
     valueFrom:
       configMapKeyRef:
         name: egov-service-host
-        key:  mdms-service-v2
+        key:  mdms-v2
   - name: INDIVIDUAL_HOST
     valueFrom:
       configMapKeyRef:
