@@ -14,6 +14,7 @@ cluster-configs:
         egov,
         es-cluster,
         kafka-cluster,
+        kafka-kraft,
         logging,
         monitoring,
         playground,
@@ -41,8 +42,8 @@ cluster-configs:
         es-host: "elasticsearch-data.es-cluster"
         es-indexer-host: "https://elasticsearch-data.es-cluster:9200/"
         flyway-locations: "filesystem:/flyway/sql,filesystem:/flyway/seed,filesystem:/flyway/qa"
-        kafka-brokers: "kafka-v2.kafka-cluster:9092"
-        kafka-infra-brokers: "kafka-v2-infra.kafka-cluster:9092"
+        kafka-brokers: "kafka-kraft-controller-headless.kafka-kraft:9092"
+        kafka-infra-brokers: "kafka-kraft-controller-infra-headless.kafka-kraft:9092"
         logging-level-jdbc: "debug"
         mobile-validation-workaround: "true"
         s3-assets-bucket: "(pb-egov-assets|egov-playground-assets)"
@@ -850,6 +851,23 @@ zookeeper-v2:
     requests:
       cpu: 300m
       memory: 384Mi
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# kafka-kraft >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+kafka-kraft:
+  controller:
+    persistence:
+      enabled: true
+      size: 25Gi
+    heapOpts: "-Xms1024M -Xmx1024M"
+    resources:
+      limits:
+        memory: 1408Mi
+      requests:
+        cpu: 500m
+        memory: 1408Mi
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
