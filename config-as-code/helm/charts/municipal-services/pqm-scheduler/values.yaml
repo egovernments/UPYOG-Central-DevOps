@@ -10,7 +10,7 @@ cron:
   
 # Container Configs
 image:
-  repository: "egovio/pqm-scheduler"
+  repository: "pqm-scheduler"
   tag: "latest"
 
 command: 
