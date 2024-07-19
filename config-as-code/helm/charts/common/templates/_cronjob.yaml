@@ -39,7 +39,7 @@ spec:
             command:
             {{- toYaml .Values.command  | nindent 12 }}
           {{- end }}
-          {{- if .Values.args }}            
+          {{- if .Values.args }}
             args:
             {{- toYaml .Values.args | nindent 12 }}
           {{- end }}             
