@@ -5,7 +5,7 @@ cluster-configs:
   configmaps:
     egov-config:
       data:
-        s3-assets-bucket: "(pb-egov-assets|egov-dev-assets)"
+        s3-assets-bucket: "egov-sandbox-assets"
 
 externalName: s3.ap-south-1.amazonaws.com
 httpPort: 80
