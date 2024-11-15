@@ -549,6 +549,14 @@ nginx-ingress:
         enabled: true
       prometheusRule:
         enabled: true
+    addHeaders:
+      X-Content-Type-Options: "nosniff"
+      X-Frame-Options: "SAMEORIGIN"
+      X-XSS-Protection: "1; mode=block"
+      Access-Control-Allow-Origin: "https://egov-sandbox.niua.org"
+      Access-Control-Allow-Methods: "GET, POST, OPTIONS"
+      Access-Control-Allow-Headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range"
+      Strict-Transport-Security: "max-age=31536000; includeSubDomains"
 
 cert-manager:
   email: "shivam.upadhyay@egovernments.org"
