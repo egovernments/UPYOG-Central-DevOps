@@ -527,8 +527,7 @@ dashboard:
       <script src=https://egov-sandbox-assets.s3.ap-south-1.amazonaws.com/globalConfigs.js type=text/javascript></script>
       ';"
 
-nginx-ingress:
-  replicas: 1
+ingress-nginx:
   default-backend-service: "egov/nginx"
   namespace: egov
   cert-issuer: "letsencrypt-prod"
@@ -536,13 +535,13 @@ nginx-ingress:
   ssl-ciphers: "EECDH+CHACHA20:EECDH+AES"
   ssl-ecdh-curve: "X25519:prime256v1:secp521r1:secp384r1"
   controller:
-    image:
-      repository: egovio/nginx-ingress-controller
-      tag: "0.26.1"
+    replicas: 1
     metrics:
       enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
+      prometheusRule:
+        enabled: true
     service:
       annotations:
         service.beta.kubernetes.io/aws-load-balancer-type: nlb
